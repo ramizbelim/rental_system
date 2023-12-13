@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cloth_orders_form_view" model="ir.ui.view">
+            <field name="name">Order Details</field>
+            <field name="model">cloth.orders</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="address"/>
+                                <field name="delivery_address"/>
+                                <field name="mobile"/>
+                                <field name="product"/>
+                            </group>
+                            <group>
+                                <field name="order_date"/>
+                                <field name="rental_period_start"/>
+                                <field name="rental_period_end"/>
+                                <field name="duration"/>
+                                <field name="payment_method"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="cloth_orders_tree_view" model="ir.ui.view">
+            <field name="name">Cloth Orders Tree View</field>
+            <field name="model">cloth.orders</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="rental_period_start"/>
+                    <field name="delivery_address"/>
+                    <field name="mobile"/>
+                    <field name="product"/>
+                    <field name="duration"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_orders" model="ir.actions.act_window">
+            <field name="name">Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cloth.orders</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
