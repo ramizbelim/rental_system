@@ -5,11 +5,13 @@ from dateutil.relativedelta import relativedelta
 class ClothOrder(models.Model):
     _name = "cloth.orders"
     _description = " Cloth Rental Order"
+    _rec_name = "reciept_num"
 
-    name = fields.Many2one("res.partner",string="Customer",required=True)
+    name = fields.Char(string="Customer",required=True)
+    reciept_num = fields.Char('Order No.', copy=False, readonly=True)
     address = fields.Char(string="Address")
     delivery_address = fields.Char(string="Delivery Address",required=True)
-    mobile = fields.Char(related='name.phone',string="Mobile No.")
+    mobile = fields.Char(string="Mobile No.")
     product = fields.Selection([('men',"Men"),('women',"Women"),('children',"Children")],string="Product")
     order_date = fields.Date(string="Order Date")
     rental_period_start = fields.Date(string="From Date")
@@ -21,6 +23,11 @@ class ClothOrder(models.Model):
     def _onchange_duration(self):
         for rec in self:
            rec.duration= relativedelta(rec.rental_period_end, rec.rental_period_start).days
+
+    @api.model
+    def create(self, vals):
+        vals['reciept_num'] = self.env['ir.sequence'].next_by_code('cloth.order.code')
+        return super(ClothOrder,self).create(vals)
 
 
 

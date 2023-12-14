@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="action_contacts_customer" model="ir.actions.act_window">
-        <field name="name">Customer</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">res.partner</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
-        <field name="search_view_id" ref="base.view_res_partner_filter"/>
-        <field name="context">{'default_is_company': True}</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a Contact in your address book
-            </p>
-            <p>
-                Odoo helps you track all activities related to your contacts.
-            </p>
-        </field>
-    </record>
+    <data>
+        <record id="customers_form_view" model="ir.ui.view">
+            <field name="name">Customer Details</field>
+            <field name="model">rent.customers</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div>
+                            <h1>
+<!--                                 <field name="prod_id" readonly="1"/>-->
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="mobile"/>
+                            <field name="address"/>
+                            <field name="identity"/>
+                            <field name="identity_proof"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="customers_tree_view" model="ir.ui.view">
+            <field name="name">rent.customers.tree.view</field>
+            <field name="model">rent.customers</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="mobile"/>
+                    <field name="address"/>
+                    <field name="identity"/>
+                    <field name="identity_proof"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_customers" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rent.customers</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
 </odoo>
