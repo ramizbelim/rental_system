@@ -3,7 +3,7 @@
     <menuitem id="rental_menu_root" name="Rental" sequence="10">
         <menuitem id="rental_menu_orders" name="Orders">
             <menuitem id="rental_menu_order_submenu" name="Orders" action="action_orders"/>
-<!--            <menuitem id="rental_menu_order_shipment" name="Shipment"/>-->
+            <menuitem id="rental_menu_order_shipment" name="Invoice" action="action_invoice"/>
 <!--            <menuitem id="rental_menu_order_transaction" name="Transaction"/>-->
 <!--            <menuitem id="rental_menu_order_refunds" name="Refunds"/>-->
 <!--            <menuitem id="rental_menu_order_status" name="Status"/>-->

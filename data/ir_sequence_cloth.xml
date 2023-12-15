@@ -16,5 +16,21 @@
             <field name="padding">6</field>
             <field name="company_id" eval="False"/>
         </record>
+
+        <record id="seq_cloth_customers" model="ir.sequence">
+            <field name="name">Customer</field>
+            <field name="code">rent.customers.code</field>
+            <field name="prefix">CUS</field>
+            <field name="padding">7</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_invoice_customers" model="ir.sequence">
+            <field name="name">Invoice</field>
+            <field name="code">customers.invoice.code</field>
+            <field name="prefix">INV/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
     </data>
 </odoo>

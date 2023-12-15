@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_form_view" model="ir.ui.view">
+            <field name="name">Invoice</field>
+            <field name="model">customers.invoice</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="invoice_number" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="invoice_date"/>
+                                <field name="payment_terms"/>
+                                <field name="currency"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Details">
+
+                            </page>
+                            <page string="Other Info">
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="invoice_tree_view" model="ir.ui.view">
+            <field name="name">customers.invoice.tree.view</field>
+            <field name="model">customers.invoice</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="invoice_number" readonly="1"/>
+                    <field name="name"/>
+                    <field name="invoice_date"/>
+                    <field name="payment_terms"/>
+                    <field name="currency"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_invoice" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">customers.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

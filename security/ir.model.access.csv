@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 rental_system.access_cloth_orders,access_cloth_orders,rental_system.model_cloth_orders,base.group_user,1,1,1,1
 rental_system.access_product_management,access_product_management,rental_system.model_product_management,base.group_user,1,1,1,1
 rental_system.access_rent_customers,access_rent_customers,rental_system.model_rent_customers,base.group_user,1,1,1,1
+rental_system.access_customers_invoice,access_customers_invoice,rental_system.model_customers_invoice,base.group_user,1,1,1,1

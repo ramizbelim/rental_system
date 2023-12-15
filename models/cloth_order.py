@@ -5,9 +5,9 @@ from dateutil.relativedelta import relativedelta
 class ClothOrder(models.Model):
     _name = "cloth.orders"
     _description = " Cloth Rental Order"
-    _rec_name = "reciept_num"
+    # _rec_name = "reciept_num"
 
-    name = fields.Char(string="Customer",required=True)
+    name = fields.Many2one("rent.customers",string="Customer",required=True)
     reciept_num = fields.Char('Order No.', copy=False, readonly=True)
     address = fields.Char(string="Address")
     delivery_address = fields.Char(string="Delivery Address",required=True)
@@ -28,8 +28,15 @@ class ClothOrder(models.Model):
     def create(self, vals):
         vals['reciept_num'] = self.env['ir.sequence'].next_by_code('cloth.order.code')
         return super(ClothOrder,self).create(vals)
-
-
+    @api.model
+    def create(self,vals):
+        # self.env["rent.customers"].create({
+        #     "name": self.name,
+        #     "address": self.address,
+        #     "mobile": self.mobile
+        # })
+        print("--------------------",self)
+        return super(ClothOrder, self).create(vals)
 
 
 
