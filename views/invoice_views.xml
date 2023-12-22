@@ -6,6 +6,9 @@
             <field name="model">customers.invoice</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <!--                        <button name="button_check_orm" string="Check ORM" type="object"/>-->
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -14,8 +17,9 @@
                         </div>
                         <group>
                             <group>
-                                <field name="name"/>
+                                <field name="name" domain="['|',('identity','=','voter_id'),('identity','=','pan')]"/>
                                 <field name="address"/>
+                                <field name="mobile"/>
                             </group>
                             <group>
                                 <field name="invoice_date"/>

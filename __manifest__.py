@@ -18,6 +18,7 @@
         'views/customer_views.xml',
         'views/product_management_views.xml',
         'views/invoice_views.xml',
+        'views/product_template_views.xml',
         'views/menu.xml',
     ],
     'installable': True,

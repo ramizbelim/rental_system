@@ -17,7 +17,7 @@
                             <field name="rent_per_day"/>
                             <field name="category"/>
                             <field name="size"/>
-                            <field name="product_image" widget="image"/>
+                            <field name="product_image" widget="image" class="oe_avatar"/>
                         </group>
                     </sheet>
                 </form>
