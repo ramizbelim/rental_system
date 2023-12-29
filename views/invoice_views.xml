@@ -22,7 +22,7 @@
                                 <field name="mobile"/>
                             </group>
                             <group>
-                                <field name="invoice_date"/>
+                                <field name="invoice_date" readonly="1"/>
                                 <field name="payment_terms"/>
                                 <field name="currency"/>
                             </group>

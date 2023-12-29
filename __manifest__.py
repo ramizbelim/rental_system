@@ -19,6 +19,7 @@
         'views/product_management_views.xml',
         'views/invoice_views.xml',
         'views/product_template_views.xml',
+        'views/cloth_washing_views.xml',
         'views/menu.xml',
     ],
     'installable': True,

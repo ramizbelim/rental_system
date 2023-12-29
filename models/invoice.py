@@ -1,14 +1,14 @@
 from odoo import models, fields, api
-
+from datetime import datetime
 
 class Invoice(models.Model):
     _name = "customers.invoice"
 
     name = fields.Many2one("rent.customers", string="Customers", required=True)
     address = fields.Char(string="Address", related="name.address", store=True)
-    mobile = fields.Integer(string="Mobile", related="name.mobile", store=True)
+    mobile = fields.Char(string="Mobile", related="name.mobile", store=True)
     invoice_number = fields.Char()
-    invoice_date = fields.Date(string="Date")
+    invoice_date = fields.Date(string="Date",default=datetime.today())
     payment_terms = fields.Char(string="Payment terms")
     currency = fields.Selection([('usd', "USD"),
                                  ('inr', "INR"),

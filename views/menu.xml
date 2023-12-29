@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="rental_menu_root" name="Rental" sequence="10">
+    <menuitem id="rental_menu_root" name="Rental" sequence="16" web_icon="rental_system,static/description/icon.png">
         <menuitem id="rental_menu_orders" name="Orders">
             <menuitem id="rental_menu_order_submenu" name="Orders" action="action_cloth_orders"/>
             <menuitem id="rental_menu_order_invoice" name="Invoice" action="action_invoice"/>
-<!--            <menuitem id="rental_menu_order_transaction" name="Transaction"/>-->
-<!--            <menuitem id="rental_menu_order_refunds" name="Refunds"/>-->
-<!--            <menuitem id="rental_menu_order_status" name="Status"/>-->
+            <!--            <menuitem id="rental_menu_order_transaction" name="Transaction"/>-->
+            <!--            <menuitem id="rental_menu_order_refunds" name="Refunds"/>-->
+            <!--            <menuitem id="rental_menu_order_status" name="Status"/>-->
         </menuitem>
         <menuitem id="rental_menu_customers" name="Customers" sequence="10">
             <menuitem id="rental_menu_customers_details" name="Customer Details" action="action_customers"/>
-<!--            <menuitem id="rental_menu_order_invoice" name="Invoice"/>-->
+            <!--            <menuitem id="rental_menu_order_invoice" name="Invoice"/>-->
         </menuitem>
         <menuitem id="rental_menu_product_management" name="Cloth Management" sequence="10">
             <menuitem id="rental_menu_product_men" name="Product" action="action_product_management"/>
-<!--            <menuitem id="rental_menu_product_children" name="Children" action=""/>-->
+            <!--            <menuitem id="rental_menu_product_children" name="Children" action=""/>-->
+        </menuitem>
+        <menuitem id="rental_menu_cloth" name="Maintenance" sequence="10">
+            <menuitem id="rental_menu_cloth_washing" name="Washing" action="action_cloth_washing"/>
         </menuitem>
     </menuitem>
 </odoo>

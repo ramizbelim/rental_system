@@ -7,10 +7,13 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+
                         <!--                        <button name="update_order" class="oe_highlight" string="Update"-->
                         <!--                                type="object"/>-->
                     </header>
                     <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-success" attrs="{'invisible': [('active', '=', True)]}"/>
                         <div class="oe_title">
                             <h1>
                                 <field name="reciept_num" readonly="1"/>
@@ -24,9 +27,11 @@
                                 <field name="delivery_address"/>
                                 <field name="mobile"/>
                                 <field name="category"/>
+                                <field name="active" invisible="1"/>
+
                             </group>
                             <group>
-                                <field name="order_date"/>
+                                <field name="order_date" readonly="1"/>
                                 <field name="rental_period_start"/>
                                 <field name="rental_period_end"/>
                                 <field name="duration" readonly="1" force_save="1"/>
@@ -36,7 +41,8 @@
                         </group>
                         <notebook>
                             <page string="Order Details">
-                                <field name="my_product_ids"/>
+                                <field name="my_product_ids"
+                                       context="{'tree_view_ref':'rental_system.product_management_tree_view_for_onetomany'}"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -55,16 +61,32 @@
                     <field name="mobile"/>
                     <field name="category"/>
                     <field name="duration"/>
-                    <field name="my_product_ids"/>
-                    <field name="price_subtotal"/>
+                    <field name="order_date"/>
+                    <field name="active" invisible="1"/>
                 </tree>
             </field>
         </record>
+
+        <record id="product_management_tree_view_for_onetomany" model="ir.ui.view">
+            <field name="name">product.management.tree.view</field>
+            <field name="model">product.management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="company_name" readonly="1"/>
+                    <field name="name"/>
+                    <field name="rent_per_day"/>
+                    <field name="size"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="action_cloth_orders" model="ir.actions.act_window">
             <field name="name">Orders</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cloth.orders</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+
     </data>
 </odoo>
