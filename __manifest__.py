@@ -8,7 +8,7 @@
     'sequence': 10,
     'description': """ Cloth Rental System """,
     'category': 'Inventory',
-    'depends': ['sale_management'],
+    'depends': ['sale_management', 'mail'],
     'data': [
         'security/ir.model.access.csv',
 

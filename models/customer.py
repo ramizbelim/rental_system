@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 
 class Customer(models.Model):
     _name = "rent.customers"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Customer Details"
     # _rec_name = "prod_num"
 

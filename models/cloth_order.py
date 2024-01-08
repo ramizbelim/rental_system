@@ -6,6 +6,7 @@ from odoo import models, fields, api
 
 class ClothOrder(models.Model):
     _name = "cloth.orders"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Cloth Rental Order"
     # _rec_name = "reciept_num"
 
@@ -29,9 +30,12 @@ class ClothOrder(models.Model):
     payment_method = fields.Selection([('upi', "UPI"),
                                        ('cash', "Cash"),
                                        ('debit_card', "Debit Card")],
-                                      string="Payment Method")
+                                      string="Payment Method",
+                                      compute="_compute_track_feilds",
+                                      store=True,
+                                      readonly=False)
     my_product_ids = fields.Many2many("product.management", string="Product")
-    price_subtotal = fields.Integer(string="Subtotal")
+    price_subtotal = fields.Integer(string="Total", store=True, related="my_product_ids.sum_one", tracking=True)
     state = fields.Selection(selection=[
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
@@ -39,7 +43,7 @@ class ClothOrder(models.Model):
         ('done', 'Done')],
         string='Status', required=True, readonly=True, copy=False,
         default='draft')
-    active = fields.Boolean('Active',default=True)
+    active = fields.Boolean('Active', default=True)
 
     @api.model
     def default_get(self, fields):
@@ -88,3 +92,19 @@ class ClothOrder(models.Model):
     #     # })
     #     print("-------------------------------------------",vals)
     #     return super(ClothOrder, self).create(vals)
+    def click_chatter(self):
+        self.message_post(body="Hello, Buuton Clicked")
+        
+    # def write(self, vals):
+    #     if 'upi' in vals:
+    #         # new_value = vals['upi']
+    #         # old_value = self.payment_method
+    #         # if new_value != old_value:
+    #         message_body = _("%(user)s changed the Name to %(user_name)s",
+    #                              user=self.env.user.name,
+    #                              user_name=self.env['cloth.order'].search(domain=[('id', '=', self.payment_method)]).payment_method)
+    #         self.message_post(body=message_body, message_type='notification')
+    #     res = super().write(vals)
+    #     return res
+
+

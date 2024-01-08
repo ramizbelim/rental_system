@@ -9,11 +9,13 @@
                     <header>
                         <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
 
+                        <button name="click_chatter" type="object" class="oe_highlight" string="Chatter Button"/>
                         <!--                        <button name="update_order" class="oe_highlight" string="Update"-->
                         <!--                                type="object"/>-->
                     </header>
                     <sheet>
-                        <widget name="web_ribbon" title="Archived" bg_color="bg-success" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-success"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
                         <div class="oe_title">
                             <h1>
                                 <field name="reciept_num" readonly="1"/>
@@ -36,16 +38,26 @@
                                 <field name="rental_period_end"/>
                                 <field name="duration" readonly="1" force_save="1"/>
                                 <field name="payment_method"/>
-                                <field name="price_subtotal" invisible="1"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Order Details">
                                 <field name="my_product_ids"
                                        context="{'tree_view_ref':'rental_system.product_management_tree_view_for_onetomany'}"/>
+
+                                <div class="oe_right">
+                                   <b>Total: <field name="price_subtotal" widget="monetary" string="Total"/></b>
+                                </div>
                             </page>
+
                         </notebook>
+
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
