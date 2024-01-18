@@ -10,7 +10,7 @@ class ClothOrder(models.Model):
     _description = "Cloth Rental Order"
     # _rec_name = "reciept_num"
 
-    name = fields.Many2one("rent.customers", string="Customer", required=True)
+    name = fields.Many2one('rent.customers',string="Customer", required=True)
     reciept_num = fields.Char('Order No.', copy=False, readonly=True)
     address = fields.Char(string="Address", related="name.address", store=True)
     same_as_address = fields.Boolean(string="Same as above?")
@@ -44,6 +44,7 @@ class ClothOrder(models.Model):
         string='Status', required=True, readonly=True, copy=False,
         default='draft')
     active = fields.Boolean('Active', default=True)
+    image = fields.Binary('Image')
 
     @api.model
     def default_get(self, fields):
@@ -73,38 +74,37 @@ class ClothOrder(models.Model):
         vals["state"] = "done"
         return super(ClothOrder, self).create(vals)
 
-    def write(self, vals):
-        print("========================", vals)
-        return super(ClothOrder, self).write(vals)
-
     @api.onchange('same_as_address')
     def _onchange_address(self):
         for rec in self:
             if rec.same_as_address:
                 rec.delivery_address = rec.address
 
-    # @api.model
-    # def create(self,vals):
-    #     # self.env["rent.customers"].create({
-    #     #     "name": self.name,
-    #     #     "address": self.address,
-    #     #     "mobile": self.mobile
-    #     # })
-    #     print("-------------------------------------------",vals)
-    #     return super(ClothOrder, self).create(vals)
+    def generate_invoice(self):
+        self.env["customers.invoice"].create({
+            "name": self.name.id,
+            "address": self.delivery_address,
+            "mobile": self.mobile,
+            "invoice_date": self.order_date
+        })
+
     def click_chatter(self):
-        self.message_post(body="Hello, Buuton Clicked")
-        
-    # def write(self, vals):
-    #     if 'upi' in vals:
-    #         # new_value = vals['upi']
-    #         # old_value = self.payment_method
-    #         # if new_value != old_value:
-    #         message_body = _("%(user)s changed the Name to %(user_name)s",
-    #                              user=self.env.user.name,
-    #                              user_name=self.env['cloth.order'].search(domain=[('id', '=', self.payment_method)]).payment_method)
-    #         self.message_post(body=message_body, message_type='notification')
-    #     res = super().write(vals)
-    #     return res
+        self.message_post(body="Hello, Button Clicked")
+
+    def write(self, vals):
+        selection_display_name = dict(self._fields['payment_method'].selection)
+        user = self.env.user.name
+        old_name = self.payment_method
+        if "payment_method" in vals:
+            message_body = (f"{user} changed the {selection_display_name[old_name]} to {selection_display_name[vals['payment_method']]}")
+            self.message_post(body=message_body)
+
+        for rec in self:
+            if rec.image:
+                count = 0
+                message_write = (f"{count} image uploaded")
+                self.message_post(body=message_write)
+
+        return super(ClothOrder, self).write(vals)
 
 

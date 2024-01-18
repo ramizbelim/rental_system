@@ -14,7 +14,7 @@ class Invoice(models.Model):
                                  ('inr', "INR"),
                                  ("aus", "AUS")],
                                 string="Currency", default='inr')
-
+    email = fields.Char("Email")
     @api.model
     def create(self, vals):
         vals['invoice_number'] = self.env['ir.sequence'].next_by_code('customers.invoice.code')
@@ -26,3 +26,10 @@ class Invoice(models.Model):
     #     for rec in self:
     #         rec.address="ramizlala 12345"
     #         print("+++++++++++++++++++++++", rec.address)
+
+    #Send Email invoice
+    def send_by_email(self):
+        mail_template = self.env.ref('rental_system.cloth_order_mail_template')
+        for rec in self:
+            mail_template.send_mail(rec.id, force_send=True)
+

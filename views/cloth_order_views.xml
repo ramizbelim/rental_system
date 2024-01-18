@@ -10,8 +10,7 @@
                         <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
 
                         <button name="click_chatter" type="object" class="oe_highlight" string="Chatter Button"/>
-                        <!--                        <button name="update_order" class="oe_highlight" string="Update"-->
-                        <!--                                type="object"/>-->
+                        <button name="generate_invoice" class="oe_highlight" string="Generate Invoice" type="object"/>
                     </header>
                     <sheet>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-success"
@@ -46,10 +45,14 @@
                                        context="{'tree_view_ref':'rental_system.product_management_tree_view_for_onetomany'}"/>
 
                                 <div class="oe_right">
-                                   <b>Total: <field name="price_subtotal" widget="monetary" string="Total"/></b>
+                                    <b>Total:
+                                        <field name="price_subtotal" widget="monetary" string="Total"/>
+                                    </b>
                                 </div>
                             </page>
-
+                            <page string="Images">
+                                <field name="image" widget="image"/>
+                            </page>
                         </notebook>
 
                     </sheet>

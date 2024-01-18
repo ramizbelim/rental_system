@@ -11,8 +11,11 @@
     'depends': ['sale_management', 'mail'],
     'data': [
         'security/ir.model.access.csv',
+        'security/cloth_rental_security.xml',
+        'security/ir_rule.xml',
 
         'data/ir_sequence_cloth.xml',
+        'data/mail_template_data.xml',
 
         'views/cloth_order_views.xml',
         'views/customer_views.xml',

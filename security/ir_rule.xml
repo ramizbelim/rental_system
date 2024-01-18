@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    <record model="ir.rule" id="ir_rule_cloth_order">-->
+<!--        <field name="name">Cloth Order User can only see their own records</field>-->
+<!--        <field name="model_id" ref="model_cloth_orders"/>-->
+<!--        <field name="groups" eval="[(4,ref('group_cloth_rental_user'))]"/>-->
+<!--        <field name="domain_force">[(6, '=',6)]</field>-->
+<!--        <field name="perm_write" eval="False"/>-->
+<!--        <field name="perm_read" eval="True"/>-->
+<!--        <field name="active" eval="True"/>-->
+<!--    </record>-->
+</odoo>

@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <!--                        <button name="button_check_orm" string="Check ORM" type="object"/>-->
+                        <button name="send_by_email" string="Send By Email" type="object" class="oe_highlight"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -20,6 +20,7 @@
                                 <field name="name" domain="['|',('identity','=','voter_id'),('identity','=','pan')]"/>
                                 <field name="address"/>
                                 <field name="mobile"/>
+                                <field name="email"/>
                             </group>
                             <group>
                                 <field name="invoice_date" readonly="1"/>
