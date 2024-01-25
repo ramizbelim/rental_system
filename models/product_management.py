@@ -8,7 +8,9 @@ class ProductManagement(models.Model):
 
     name = fields.Char(string="Product Name")
     prod_id = fields.Char(string='Product ID')
-    company_name = fields.Char("Company Name")
+    company_name = fields.Selection([('raymond','Raymond'),
+                                                    ('h_and_m','H & M '),
+                                                    ('mafatlal','Mafatlal')], string="Brand Name")
     rent_per_day = fields.Integer(string="Rent Per Day", tracking=True)
     size = fields.Selection([('s', "S"),
                              ('l', "L"),
@@ -26,16 +28,15 @@ class ProductManagement(models.Model):
                                 string="Category")
     product_image = fields.Binary(string="Image")
     sum_one = fields.Integer(string=" ", compute="_compute_subtotal")
+    quantity = fields.Integer(string="Quantity")
 
     @api.model
     def create(self, vals):
         vals['prod_id'] = self.env['ir.sequence'].next_by_code('product.management.code')
-        vals['company_name'] = "H & M"
         return super(ProductManagement, self).create(vals)
 
-    def write(self, vals):
-        vals['company_name'] = "Mafatlal"
-        return super(ProductManagement, self).write(vals)
+    # def write(self, vals):
+    #     return super(ProductManagement, self).write(vals)
 
     def _compute_subtotal(self):
         total = 0

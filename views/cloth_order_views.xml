@@ -7,10 +7,11 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+<!--                        <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>-->
 
                         <button name="click_chatter" type="object" class="oe_highlight" string="Chatter Button"/>
                         <button name="generate_invoice" class="oe_highlight" string="Generate Invoice" type="object"/>
+                        <button name="order_confirm" class="oe_highlight" string="Confirm" type="object"/>
                     </header>
                     <sheet>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-success"
@@ -27,6 +28,7 @@
                                 <field name="same_as_address"/>
                                 <field name="delivery_address"/>
                                 <field name="mobile"/>
+                                <field name="email"/>
                                 <field name="category"/>
                                 <field name="active" invisible="1"/>
 
@@ -87,7 +89,7 @@
             <field name="model">product.management</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="company_name" readonly="1"/>
+                    <field name="company_name"/>
                     <field name="name"/>
                     <field name="rent_per_day"/>
                     <field name="size"/>

@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--    <record model="ir.rule" id="ir_rule_cloth_order">-->
-<!--        <field name="name">Cloth Order User can only see their own records</field>-->
-<!--        <field name="model_id" ref="model_cloth_orders"/>-->
-<!--        <field name="groups" eval="[(4,ref('group_cloth_rental_user'))]"/>-->
-<!--        <field name="domain_force">[(6, '=',6)]</field>-->
-<!--        <field name="perm_write" eval="False"/>-->
-<!--        <field name="perm_read" eval="True"/>-->
-<!--        <field name="active" eval="True"/>-->
-<!--    </record>-->
+    <record model="ir.rule" id="ir_rule_cloth_order_user">
+        <field name="name">Cloth Order User can only see their own records</field>
+        <field name="model_id" ref="model_cloth_orders"/>
+        <field name="groups" eval="[(4,ref('group_cloth_rental_user'))]"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_read" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <record model="ir.rule" id="ir_rule_cloth_order_manager">
+        <field name="name">Cloth Order Manager can only write records</field>
+        <field name="model_id" ref="model_cloth_orders"/>
+        <field name="groups" eval="[(4,ref('group_cloth_rental_manager'))]"/>
+        <field name="perm_write" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <record model="ir.rule" id="ir_rule_cloth_order_administrator">
+        <field name="name">Cloth Order Administrator</field>
+        <field name="model_id" ref="model_cloth_orders"/>
+        <field name="groups" eval="[(4,ref('group_cloth_rental_administrator'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
 </odoo>

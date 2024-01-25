@@ -1,4 +1,4 @@
-from . import cloth_order
+from . import cloth_orders
 from . import customer
 from . import product_management
 from . import invoice

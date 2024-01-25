@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_clothorder_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <t t-set="doc" t-value="doc.with_context(lang=doc.name)"/>
+                    <t t-set="address">
+                        <t t-set="information_block">
+                            <strong>
+                                Invoicing Address:
+                            </strong>
+                            <div t-field="doc.address"
+                                 t-options='{"widget": "", "fields": ["address", "name", "mobile"], "no_marker": True, "phone_icons": True}'/>
+                            <strong>Shipping Address:</strong>
+                            <div t-field="doc.address"
+                                 t-options='{"widget": "", "fields": ["address", "name"], "no_marker": True}'/>
+                        </t>
+                    </t>
+                    <div class="page">
+                        <H6>HELLO HOW ARE YOU</H6>
+                        <div class="oe_structure"/>
+                        <h2 class="mt-4">
+                            <span t-if="doc.state in ['draft','sent']">Quotation #</span>
+                            <span t-else="">Order #</span>
+                            <span t-field="doc.reciept_num"/>
+                        </h2>
+                        <h2>
+                            <span t-field="doc.name"/>
+                        </h2>
+                        <div class="row mt-4 mb-4" id="informations">
+                            <div t-if="doc.order_date" class="col-auto col-3 mw-100 mb-2" name="informations_date">
+                                <strong t-if="doc.state in ['draft', 'done']">Order Date:</strong>
+                                <strong t-else="">Order Date:</strong>
+                                <p class="m-0" t-field="doc.order_date" t-options='{"widget": "date"}'/>
+                            </div>
+                            <div t-if="doc.rental_period_end and doc.state in ['draft', 'done']"
+                                 class="col-auto col-3 mw-100 mb-2"
+                                 name="end_date">
+                                <strong>Expiration:</strong>
+                                <p class="m-0" t-field="doc.rental_period_end"/>
+                            </div>
+                        </div>
+                        <table class="table table-sm o_main_table table-borderless mt-4">
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <th name="company_name" class="text-start">Brand Name</th>
+                                    <th name="name" class="text-end">Name</th>
+                                    <th name="rent_per_day" class="text-end">Rent Per Day</th>
+                                    <th name="size" class="text-end">Size</th>
+                                    <th name="subtotal" class="text-end">
+                                        <span groups="rental_system.rent_per_day">Amount</span>
+                                        <span groups="rental_system.price_subtotal">Total Price</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="sale_tbody">
+
+                                <t t-set="current_subtotal" t-value="0"/>
+                                <t t-foreach="lines_to_report" t-as="line">
+                                    <t t-set="current_subtotal" t-value="current_subtotal + line.rent_per_day"
+                                       groups="rental_system.rent_per_day"/>
+                                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
+                                       groups="rental_system.price_subtotal"/>
+                                    <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                        <t t-if="not line.display_type">
+
+                                            <td name="td_name">
+                                                <span t-field="line.company_name"/>
+                                            </td>
+                                            <td name="td_quantity" class="text-end">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <td name="td_priceunit" class="text-end">
+                                                <span t-field="line.rent_per_day"/>
+                                            </td>
+                                            <td t-if="display_discount" class="text-end">
+                                                <span t-field="line.size"/>
+                                            </td>
+
+                                            <td name="td_subtotal"
+                                                class="text-end o_price_total">
+                                                <span t-field="line.rent_per_day"
+                                                      groups="rental_system.rent_per_day"/>
+                                                <span t-field="line.price_subtotal"
+                                                      groups="rental_system.price_subtotal"/>
+                                            </td>
+                                        </t>
+                                        <t t-elif="line.display_type == 'line_section'">
+                                            <td name="td_section_line" colspan="99">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                            <t t-set="current_section" t-value="line"/>
+                                            <t t-set="current_subtotal" t-value="0"/>
+                                        </t>
+                                        <t t-elif="line.display_type == 'line_note'">
+                                            <td name="td_note_line" colspan="99">
+                                                <span t-field="line.name"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                    <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section') and not line.is_downpayment">
+                                        <tr class="is-subtotal text-end">
+                                            <td name="td_section_subtotal" colspan="99">
+                                                <strong class="mr16">Subtotal</strong>
+                                                <span
+                                                        t-out="current_subtotal"
+                                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'
+                                                />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
+
+        <!--<odoo>-->
+        <!--    <template id="report_clothorder_document">-->
+        <!--        <t t-call="web.external_layout">-->
+        <!--            &lt;!&ndash; So that it appears in the footer of the report instead of the company VAT if it's set &ndash;&gt;-->
+        <!--            <t t-set="address">-->
+        <!--                <div t-field="doc.name"-->
+        <!--                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>-->
+        <!--            </t>-->
+        <!--            <t t-set="information_block">-->
+        <!--                <div t-field="doc.name"-->
+        <!--                     t-options='{"widget": "contact", "fields": ["address", "name", "mobile"], "no_marker": True, "phone_icons": True}'/>-->
+        <!--                <strong>Shipping Address:</strong>-->
+        <!--                <div t-field="doc.name"-->
+        <!--                     t-options='{"widget": "contact", "fields": ["address", "name", "mobile"], "no_marker": True, "phone_icons": True}'/>-->
+        <!--            </t>-->
+        <!--            <div class="page">-->
+        <!--                <div class="oe_structure"/>-->
+
+        <!--                <div class="row mt-4 mb-4" id="informations">-->
+        <!--                    <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2" name="informations_date">-->
+        <!--                        <strong>Order Date:</strong>-->
+        <!--                        <p class="m-0" t-field="doc.date_order" t-options='{"widget": "order_date"}'/>-->
+        <!--                    </div>-->
+        <!--                    <div t-if="doc.rental_period_end and doc.state in ['draft', 'sent']"-->
+        <!--                         class="col-auto col-3 mw-100 mb-2"-->
+        <!--                         name="expiration_date">-->
+        <!--                        <strong>Expiration:</strong>-->
+        <!--                        <p class="m-0" t-field="doc.rental_period_end"/>-->
+        <!--                    </div>-->
+        <!--                    <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">-->
+        <!--                        <strong>Salesperson:</strong>-->
+        <!--                        <p class="m-0" t-field="doc.user_id"/>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+
+        <!--                &lt;!&ndash;                <table class="table table-sm o_main_table table-borderless mt-4">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash; In case we want to repeat the header, remove "display: table-row-group" &ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                <thead style="display: table-row-group">&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                    <tr>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        <th name="th_description" class="text-start">Description</th>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        <th name="th_quantity" class="text-end">Quantity</th>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        <th name="th_priceunit" class="text-end">Unit Price</th>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        <th name="th_discount" t-if="display_discount" class="text-end">&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                            <span>Disc.%</span>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        </th>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        <th name="th_taxes" class="text-end">Taxes</th>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        <th name="th_subtotal" class="text-end">&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                            <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                            <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                        </th>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                    </tr>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    &lt;!&ndash;                </thead>&ndash;&gt;&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    <tbody class="sale_tbody">&ndash;&gt;-->
+
+        <!--                &lt;!&ndash;                        <t t-set="current_subtotal" t-value="0"/>&ndash;&gt;-->
+
+        <!--                &lt;!&ndash;                        <t t-foreach="lines_to_report" t-as="line">&ndash;&gt;-->
+
+        <!--                &lt;!&ndash;                            <t t-set="current_subtotal" t-value="current_subtotal + line.sum_one"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                            <t t-set="current_subtotal" t-value="current_subtotal + line.sum_one"/>&ndash;&gt;-->
+
+        <!--                &lt;!&ndash;                            <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <t t-if="not line.display_type">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td name="td_name">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.name"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td name="td_quantity" class="text-end">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.company_name"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.name"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td name="td_priceunit" class="text-end">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.rent_per_day"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td t-if="display_discount" class="text-end">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.discount"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td name="td_taxes" class="text-end">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-out="', '.join(map(lambda x: (x.name or x.name.name), line.tax_id))"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td t-if="not line.is_downpayment" name="td_subtotal"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        class="text-end o_price_total">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.price_subtotal"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                              groups="account.group_show_line_subtotals_tax_excluded"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.price_total"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                              groups="account.group_show_line_subtotals_tax_included"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </t>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <t t-elif="line.display_type == 'line_section'">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td name="td_section_line" colspan="99">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.name"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <t t-set="current_section" t-value="line"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <t t-set="current_subtotal" t-value="0"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </t>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                <t t-else="line.display_type == 'line_note'">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    <td name="td_note_line" colspan="99">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                        <span t-field="line.name"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                    </td>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                </t>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                            </tr>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                        </t>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    </tbody>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                </table>&ndash;&gt;-->
+
+        <!--            </div>-->
+        <!--        </t>-->
+        <!--    </template>-->
+        <!--</odoo>-->

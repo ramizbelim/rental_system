@@ -14,8 +14,15 @@
         'security/cloth_rental_security.xml',
         'security/ir_rule.xml',
 
+        'report/ir_actions_report_templates.xml',
+        'report/ir_actions_report.xml',
+        'report/sale_order_report.xml',
+        'report/custom_report.xml',
+
         'data/ir_sequence_cloth.xml',
         'data/mail_template_data.xml',
+        'data/mail_template_order.xml',
+        'data/ir_cron_data.xml',
 
         'views/cloth_order_views.xml',
         'views/customer_views.xml',

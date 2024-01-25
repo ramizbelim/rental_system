@@ -10,12 +10,13 @@ class ClothOrder(models.Model):
     _description = "Cloth Rental Order"
     # _rec_name = "reciept_num"
 
-    name = fields.Many2one('rent.customers',string="Customer", required=True)
+    name = fields.Many2one('rent.customers', string="Customer", required=True)
     reciept_num = fields.Char('Order No.', copy=False, readonly=True)
     address = fields.Char(string="Address", related="name.address", store=True)
     same_as_address = fields.Boolean(string="Same as above?")
     delivery_address = fields.Char(string="Delivery Address", required=True)
     mobile = fields.Char(string="Mobile No.", related="name.mobile", store=True)
+    email = fields.Char(string="Email")
     category = fields.Selection([('t_shirt', "T-Sirt"),
                                  ('shirt', "Shirt"),
                                  ('pent', "Pent"),
@@ -36,13 +37,13 @@ class ClothOrder(models.Model):
                                       readonly=False)
     my_product_ids = fields.Many2many("product.management", string="Product")
     price_subtotal = fields.Integer(string="Total", store=True, related="my_product_ids.sum_one", tracking=True)
-    state = fields.Selection(selection=[
-        ('draft', 'Draft'),
-        ('in_progress', 'In Progress'),
-        ('cancel', 'Cancelled'),
-        ('done', 'Done')],
-        string='Status', required=True, readonly=True, copy=False,
-        default='draft')
+    # state = fields.Selection(selection=[
+    #     ('draft', 'Draft'),
+    #     ('in_progress', 'In Progress'),
+    #     ('cancel', 'Cancelled'),
+    #     ('done', 'Done')],
+    #     string='Status', required=True, readonly=True, copy=False,
+    #     default='draft')
     active = fields.Boolean('Active', default=True)
     image = fields.Binary('Image')
 
@@ -71,7 +72,6 @@ class ClothOrder(models.Model):
     def create(self, vals):
         print("---------------------------", vals)
         vals['reciept_num'] = self.env['ir.sequence'].next_by_code('cloth.order.code')
-        vals["state"] = "done"
         return super(ClothOrder, self).create(vals)
 
     @api.onchange('same_as_address')
@@ -96,7 +96,8 @@ class ClothOrder(models.Model):
         user = self.env.user.name
         old_name = self.payment_method
         if "payment_method" in vals:
-            message_body = (f"{user} changed the {selection_display_name[old_name]} to {selection_display_name[vals['payment_method']]}")
+            message_body = (
+                f"{user} changed the {selection_display_name[old_name]} to {selection_display_name[vals['payment_method']]}")
             self.message_post(body=message_body)
 
         for rec in self:
@@ -107,4 +108,40 @@ class ClothOrder(models.Model):
 
         return super(ClothOrder, self).write(vals)
 
+    def send_mail_cloth_orders(self):
+        mail_template = self.env.ref('rental_system.cloth_order_mail_template_notification')
+        records = self.search([])
+        for rec in records:
+            if ((date.today() == rec.rental_period_end - relativedelta(days=1)) or (
+                    date.today() == rec.rental_period_end + relativedelta(
+                    days=1)) or date.today() == rec.rental_period_end):
+                for record in records:
+                    mail_template.send_mail(record.id, force_send=True)
 
+
+    def order_confirm(self):
+        order_id = self.env.context.get("active_id")
+        record = self.env['product.management'].browse(order_id)
+        print("))))))))", record.name)
+        pass
+        # self.write({
+        #     "name": self.name.id,
+        #     "address": self.delivery_address,
+        #     "mobile": self.mobile,
+        #     "delivery_address": self.delivery_address,
+        #     "address": self.address,
+        #     "email": self.email,
+        #     "category": self.category,
+        #     "order_date": self.order_date,
+        #     "rental_period_start": self.rental_period_start,
+        #     "rental_period_end": self.rental_period_end,
+        #     "payment_method": self.payment_method,
+        #     "duration": self.duration,
+        #     "my_product_ids": self.my_product_ids.ids
+        # })
+    @api.model
+    def default_get(self,fields_list):
+        # res = super().default_get(fields_list)
+        print("=================================",self)
+        print("/////////////////////////",fields_list)
+        return super(ClothOrder, self).default_get(fields_list)
