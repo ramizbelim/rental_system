@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="report_custom">
-        <div class="header">
-            <div class="row">
-                <h1>Custom Header</h1>
-            </div>
-        </div>
-        <div class="article oe_report_layout_standard">
-            <t t-out="0"/>
-        </div>
-        <div class="footer oe_standard_footer">
-            <div class="row">
-                <h1>Custom Footer</h1>
-            </div>
-        </div>
-    </template>
+<!--    <template id="report_custom">-->
+<!--        <div class="header">-->
+<!--            <div class="row">-->
+<!--                <h1>Custom Header</h1>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="article oe_report_layout_standard">-->
+<!--            <t t-out="0"/>-->
+<!--        </div>-->
+<!--        <div class="footer oe_standard_footer">-->
+<!--            <div class="row">-->
+<!--                <h1>Custom Footer</h1>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </template>-->
 
 </odoo>

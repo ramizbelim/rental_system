@@ -20,6 +20,7 @@ class Customer(models.Model):
                                 string="Identity")
     identity_proof = fields.Binary("Identity Proof")
     email_id = fields.Char("Email ID")
+    cloth_order = fields.Many2many('product.management',string="Cloth Order")
 
     @api.model
     def create(self, vals):

@@ -17,7 +17,7 @@
                             <field name="company_name"/>
                             <field name="rent_per_day"/>
                             <field name="category"/>
-                            <field name="quantity"/>
+<!--                            <field name="quantity"/>-->
                             <field name="size" attrs="{'invisible': [('category', '=', 'pent')]}"/>
                             <field name="product_image" widget="image" class="oe_avatar"/>
                         </group>
@@ -35,7 +35,6 @@
                     <field name="name"/>
                     <field name="rent_per_day"/>
                     <field name="category"/>
-                    <field name="quantity"/>
                     <field name="size"/>
                 </tree>
             </field>

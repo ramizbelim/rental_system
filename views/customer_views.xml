@@ -13,11 +13,16 @@
                             </h1>
                         </div>
                         <group>
-                            <field name="name"/>
-                            <field name="mobile"/>
-                            <field name="address"/>
-                            <field name="identity"/>
-                            <field name="identity_proof"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="mobile"/>
+                                <field name="address"/>
+                            </group>
+                            <group>
+                                <field name="identity"/>
+                                <field name="identity_proof"/>
+                                <field name="cloth_order" widget="many2many_tags"/>
+                            </group>
                         </group>
                     </sheet>
                     <div class="oe_chatter">

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="assigned_product_wizard_form" model="ir.ui.view">
+            <field name="name">assigned.product</field>
+            <field name="model">assigned.product</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div>
+                            <h1>
+                                <label for="name"
+                                       string="This Product is assigned to another customer. Can you assigned Force fully?"/>
+                            </h1>
+                            <h2>
+                                <field name="name" widget="radio" options="{'horizontal': true}"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <field name="customer"/>
+                            <field name="mobile"/>
+                            <field name="address"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button special="cancel" data-hotkey="z" string="Cancel" class="btn-primary"/>
+                        <button name="force_assigned" data-hotkey="1" string="Force Assigned" class="btn-primary"
+                                type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_assigned_product_wizard" model="ir.actions.act_window">
+            <field name="name">Assigned Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">assigned.product</field>
+            <field name="view_id" ref="assigned_product_wizard_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

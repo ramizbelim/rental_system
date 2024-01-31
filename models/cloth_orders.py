@@ -1,7 +1,7 @@
 from datetime import datetime, date
-
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class ClothOrder(models.Model):
@@ -12,10 +12,10 @@ class ClothOrder(models.Model):
 
     name = fields.Many2one('rent.customers', string="Customer", required=True)
     reciept_num = fields.Char('Order No.', copy=False, readonly=True)
-    address = fields.Char(string="Address", related="name.address", store=True)
+    address = fields.Char(string="Address", related="name.address", store=True, readonly=False)
     same_as_address = fields.Boolean(string="Same as above?")
-    delivery_address = fields.Char(string="Delivery Address", required=True)
-    mobile = fields.Char(string="Mobile No.", related="name.mobile", store=True)
+    delivery_address = fields.Char(string="Delivery Address")
+    mobile = fields.Char(string="Mobile No.", related="name.mobile", store=True,readonly=False)
     email = fields.Char(string="Email")
     category = fields.Selection([('t_shirt', "T-Sirt"),
                                  ('shirt', "Shirt"),
@@ -51,16 +51,14 @@ class ClothOrder(models.Model):
     def default_get(self, fields):
         res = super(ClothOrder, self).default_get(fields)
         date_today = date.today()
-        print(date_today)
         res['rental_period_start'] = date.today()
         res['rental_period_end'] = date.today()
         # res['order_date'] = datetime.now()
-        print(res)
         # return {"rental_period_start": date.today(), "rental_period_end": date.today()}
         data = self.search([]).read(['reciept_num'])
         # data = self.env['res.partner'].read_group([], ['phone'],['phone'])
         # data = self.env['rent.customers'].search_read([('identity','=','pan')], ['identity'])
-        print("++++++++++++++++++++++\n", data)
+
         return res
 
     @api.onchange('rental_period_start', 'rental_period_end')
@@ -70,7 +68,6 @@ class ClothOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        print("---------------------------", vals)
         vals['reciept_num'] = self.env['ir.sequence'].next_by_code('cloth.order.code')
         return super(ClothOrder, self).create(vals)
 
@@ -100,12 +97,12 @@ class ClothOrder(models.Model):
                 f"{user} changed the {selection_display_name[old_name]} to {selection_display_name[vals['payment_method']]}")
             self.message_post(body=message_body)
 
-        for rec in self:
-            if rec.image:
-                count = 0
-                message_write = (f"{count} image uploaded")
-                self.message_post(body=message_write)
-
+        # for rec in self:
+        #     if rec.image:
+        #         count = 0
+        #         message_write = (f"{count} image uploaded")
+        #         self.message_post(body=message_write)
+        
         return super(ClothOrder, self).write(vals)
 
     def send_mail_cloth_orders(self):
@@ -118,30 +115,60 @@ class ClothOrder(models.Model):
                 for record in records:
                     mail_template.send_mail(record.id, force_send=True)
 
-
     def order_confirm(self):
-        order_id = self.env.context.get("active_id")
-        record = self.env['product.management'].browse(order_id)
-        print("))))))))", record.name)
-        pass
-        # self.write({
-        #     "name": self.name.id,
-        #     "address": self.delivery_address,
-        #     "mobile": self.mobile,
-        #     "delivery_address": self.delivery_address,
-        #     "address": self.address,
-        #     "email": self.email,
-        #     "category": self.category,
-        #     "order_date": self.order_date,
-        #     "rental_period_start": self.rental_period_start,
-        #     "rental_period_end": self.rental_period_end,
-        #     "payment_method": self.payment_method,
-        #     "duration": self.duration,
-        #     "my_product_ids": self.my_product_ids.ids
-        # })
+        # for rec in self.my_product_ids:
+        #     product = self.env["product.management"].search([('prod_id', '=', rec.prod_id)])
+        #     if self.my_product_ids:
+        #         if rec.quantity==0:
+        #             return self.call_wizard()
+        #         else:
+        #             product.quantity -=1
+        # for rec in self.my_product_ids:
+
+        self.write({
+                    "name": self.name.id,
+                    "address": self.delivery_address,
+                    "mobile": self.mobile,
+                    "delivery_address": self.delivery_address,
+                    "address": self.address,
+                    "email": self.email,
+                    "category": self.category,
+                    "order_date": self.order_date,
+                    "rental_period_start": self.rental_period_start,
+                    "rental_period_end": self.rental_period_end,
+                    "duration": self.duration,
+                    "my_product_ids": self.my_product_ids.ids
+                })
+        self.env["rent.customers"].search([("name", '=', self.name.name)]).update({
+            'cloth_order': [(fields.Command.set([rec.id for rec in self.my_product_ids]))]
+        })
+        for rec in self.my_product_ids:
+            print("-----------",rec.id)
+
+            # 'cloth_order': [(4,self.my_product_ids.ids)]
+
+
     @api.model
     def default_get(self,fields_list):
-        # res = super().default_get(fields_list)
-        print("=================================",self)
-        print("/////////////////////////",fields_list)
         return super(ClothOrder, self).default_get(fields_list)
+
+    # def force_assigned(self):
+        # wizard = self.env['ir.actions.act_window']._for_xml_id("rental_system.action_assigned_order_wizard")
+        # return {
+        #     'name': 'Wizard',
+        #     'type': 'ir.actions.act_window',
+        #     'view_mode': 'form',
+        #     "view_type": "form",
+        #     'res_model': 'assigned.order',
+        #     'target': 'new',
+        #     'view_id': self.env.ref
+        #     ('rental_system.action_assigned_order_wizard').id,
+        #     'context': {'active_id': self.id},
+        # }
+        # print("===========")
+        # pass
+
+
+    def call_wizard(self):
+        wizard = self.env['ir.actions.act_window']._for_xml_id("rental_system.action_assigned_order_wizard")
+        return wizard

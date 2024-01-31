@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_server_force_assigned_order" model="ir.actions.server">
+            <field name="name">Assigned Order</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_management" />
+            <field name="binding_model_id" ref="model_product_management" />
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                'type' : 'ir.actions.act_window',
+                'res_model' : 'assigned.order.force',
+                'target': 'new',
+                'views':[(env.ref('rental_system.assigned_order_force_wizard_form').id, 'form')]
+                }
+            </field>
+        </record>
+    </data>
+</odoo>

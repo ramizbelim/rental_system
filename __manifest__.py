@@ -14,6 +14,10 @@
         'security/cloth_rental_security.xml',
         'security/ir_rule.xml',
 
+        'wizard/assigned_order_wizard_views.xml',
+        'wizard/assigned_order_force_wizard_views.xml',
+        'wizard/error_message_wizard_views.xml',
+
         'report/ir_actions_report_templates.xml',
         'report/ir_actions_report.xml',
         'report/sale_order_report.xml',
@@ -23,6 +27,7 @@
         'data/mail_template_data.xml',
         'data/mail_template_order.xml',
         'data/ir_cron_data.xml',
+        'data/ir_actions_data.xml',
 
         'views/cloth_order_views.xml',
         'views/customer_views.xml',
@@ -30,7 +35,7 @@
         'views/invoice_views.xml',
         'views/product_template_views.xml',
         'views/cloth_washing_views.xml',
-        'views/menu.xml',
+        'views/menu_views.xml',
     ],
     'installable': True,
     'application': True,
