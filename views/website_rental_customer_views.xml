@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="menu_my_customer" model="website.menu">
+        <field name="name">Customer</field>
+        <field name="url">/customer</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+    <template id="rental_customer_record" name="Customer Details">
+        <t t-call="website.layout">
+            <div>
+                <br/>
+                <center>
+                    <h3>Customer Details</h3>
+                </center>
+                <br/>
+            </div>
+            <div class="row mt-4">
+
+                <t t-foreach="customer" t-as="o">
+                    <div class="col-lg-3">
+                        <tr>
+                            <!--                            <a t-att-href="'/contact/%s'%partner.id">-->
+                            <div class="container mb-4">
+                                <div>
+                                    <span t-esc="o.name"/>
+                                    <span t-esc="o.mobile"/>
+                                    <span t-esc="o.email_id"/>
+                                </div>
+                            </div>
+                            <!--                            </a>-->
+                        </tr>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

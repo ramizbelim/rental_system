@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="contact_res_partner_details_dynamic" name="Contact Details">
+        <t t-call="website.layout">
+            <div>
+                <br/>
+                <center>
+                    <h3>Contact Details</h3>
+                </center>
+                <br/>
+            </div>
+            <div class="row mt-4">
+                <t t-foreach="partners" t-as="partner">
+                    <div class="col-lg-3">
+                        <tr>
+                            <div class="container mb-4">
+                                <div>
+                                    <img t-att-src="image_data_uri(partner.avatar_128)" style="height:100px;"/>
+                                </div>
+                                <div>
+                                    <span t-esc="partner.name"/>
+                                    <span t-esc="partner.phone"/>
+                                    <span t-esc="partner.email"/>
+                                </div>
+                            </div>
+                        </tr>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

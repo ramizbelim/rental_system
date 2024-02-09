@@ -1,0 +1,17 @@
+*{font-family: 'Open Sans', sans-serif;}
+*{
+  text-align: center;
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,800&display=swap');
+.customer{
+background-color:#F0F8F;
+ text-decoration: underline;
+  text-underline-offset: 10px;
+}
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+}
+
