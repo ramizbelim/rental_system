@@ -30,10 +30,9 @@
                         </group>
                         <notebook>
                             <page string="Order Details">
-
+                                <field name="order_details"/>
                             </page>
                             <page string="Other Info">
-
                             </page>
                         </notebook>
                     </sheet>

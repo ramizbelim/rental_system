@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="static_snippet" name="Basic Snippet">
+        <section class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Gradiant Picture</h1>
+                    <img src="rental_system/static/src/img/cool-background.png"/>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="rental_snippets" inherit_id="website.snippets" priority="8">
+        <xpath expr="//div[@id='snippet_feature']//t[@t-snippet][last()]" position="after">
+            <t t-snippet="rental_system.static_snippet"/>
+        </xpath>
+    </template>
+</odoo>

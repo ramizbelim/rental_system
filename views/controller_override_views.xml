@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="rental_customer_record_details" name="Customer Details">
+
+        <t t-call="website.layout">
+<!--            <t t-call-assets="rental_system.assets_frontend"/>-->
+            <link rel="stylesheet" href="rental_system/static/src/scss/controller_override.css"></link>
+            <div class="customer mb-2 mt-2 mr-4 ml-4">
+                <br/>
+                <center>
+                    <h3 class="heading">Product Details</h3>
+                </center>
+                <br/>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th name="th_name" scope="col">Product Name</th>
+                        <th name="th_address" scope="col">Rent Per Day</th>
+                        <th name="th_email" scope="col">Size</th>
+                        <th name="th_image" scope="col">Picture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="product" t-as="o">
+                        <tr>
+                            <td>
+                                <span t-esc="o.name"/>
+                            </td>
+                            <td>
+                                <span t-esc="o.rent_per_day"/>
+                            </td>
+                            <td>
+                                <span t-esc="o.size"/>
+                            </td>
+                            <td>
+                                <img t-attf-src="data:image/*;base64,{{o.product_image}}" class="image"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <div class="container">
+                <div class="row mb-2 name">
+                    <div class="col header">
+                        <h3>Customer Name</h3>
+                    </div>
+                    <div class="col header">
+                        <h3>Address</h3>
+                    </div>
+                    <div class="col header">
+                        <h3>Email</h3>
+                    </div>
+                    <div class="col header">
+                        <h3>Mobile</h3>
+                    </div>
+                </div>
+                <t t-foreach="customer" t-as="o">
+                    <div class="row mb-4 data-row">
+                        <div class="col">
+                            <span t-esc="o.name"/>
+                        </div>
+                        <div class="col">
+                            <span t-esc="o.address"/>
+                        </div>
+                        <div class="col">
+                            <span t-esc="o.email_id"/>
+                        </div>
+                        <div class="col">
+                            <span t-esc="o.mobile"/>
+                        </div>
+                    </div>
+                </t>
+            </div>
+            <!--            <div>-->
+            <!--                <br/>-->
+            <!--                <center>-->
+            <!--                    <h3>Product Details</h3>-->
+            <!--                </center>-->
+            <!--                <br/>-->
+            <!--            </div>-->
+            <!--            <div class="container">-->
+            <!--                <div class="row mb-2 text-center">-->
+            <!--                    <div class="col">-->
+            <!--                        <h3>Product Name</h3>-->
+            <!--                    </div>-->
+            <!--                    <div class="col">-->
+            <!--                        <h3>Company Name</h3>-->
+            <!--                    </div>-->
+            <!--                    <div class="col">-->
+            <!--                        <h3>Category</h3>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <t t-foreach="product" t-as="o">-->
+            <!--                    <div class="row mb-4 text-center">-->
+            <!--                        <div class="col">-->
+            <!--                            <span t-esc="o.name"/>-->
+            <!--                        </div>-->
+            <!--                        <div class="col">-->
+            <!--                            <span t-esc="o.company_name"/>-->
+            <!--                        </div>-->
+            <!--                        <div class="col">-->
+            <!--                            <span t-esc="o.category"/>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </t>-->
+            <!--            </div>-->
+
+            <!--            <div class="container">-->
+            <!--                <table class="container">-->
+            <!--                    <thead class="col">-->
+            <!--                        <tr class="heading">-->
+            <!--                            <th name="th_name">Customer Name</th>-->
+            <!--                            <th name="th_mobile">Mobile</th>-->
+            <!--                            <th name="th_address">Address</th>-->
+            <!--                            <th name="th_email">Email</th>-->
+            <!--                            <th name="th_image">Image</th>-->
+            <!--                        </tr>-->
+            <!--                    </thead>-->
+            <!--                    <t t-foreach="product" t-as="o">-->
+            <!--                        <tbody>-->
+            <!--                            <tr>-->
+            <!--                                <td>-->
+            <!--                                    <span t-esc="o.name"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <span t-esc="o.company_name"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <span t-esc="o.rent_per_day"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <span t-esc="o.category"/>-->
+            <!--                                </td>-->
+            <!--                                <td>-->
+            <!--                                    <img t-att-src="image_data_uri(o.product_image)" style="height:100px;"/>-->
+            <!--                                </td>-->
+            <!--                            </tr>-->
+            <!--                        </tbody>-->
+            <!--                    </t>-->
+            <!--                </table>-->
+
+            <!--            </div>-->
+        </t>
+    </template>
+</odoo>

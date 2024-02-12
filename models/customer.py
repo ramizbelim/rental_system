@@ -57,7 +57,7 @@ class Customer(models.Model):
         if name:
             # Be sure name_search is symetric to name_get
             # name = name.split(' / ')[-1]
-            print(".----------------------name->", name)
+            # print(".----------------------name->", name)
             args = ['|', ('name', operator, name), ('prod_num', operator, name)] + args
 
             # print(".----------------------args->", args)

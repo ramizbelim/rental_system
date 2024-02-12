@@ -58,7 +58,6 @@ class ClothOrder(models.Model):
         data = self.search([]).read(['reciept_num'])
         # data = self.env['res.partner'].read_group([], ['phone'],['phone'])
         # data = self.env['rent.customers'].search_read([('identity','=','pan')], ['identity'])
-
         return res
 
     @api.onchange('rental_period_start', 'rental_period_end')
@@ -78,12 +77,19 @@ class ClothOrder(models.Model):
                 rec.delivery_address = rec.address
 
     def generate_invoice(self):
-        self.env["customers.invoice"].create({
-            "name": self.name.id,
-            "address": self.delivery_address,
-            "mobile": self.mobile,
-            "invoice_date": self.order_date
-        })
+        invoice_search = self.env["customers.invoice"].search([('name', '=', self.name.id)])
+        store = []
+        for i in invoice_search:
+            store.append(i)
+        if store == []:
+            self.env["customers.invoice"].create({
+                "name": self.name.id,
+                "address": self.delivery_address,
+                "mobile": self.mobile,
+                "invoice_date": self.order_date
+            })
+        else:
+            raise ValidationError("Invoice Already generated!!!!!")
 
     def click_chatter(self):
         self.message_post(body="Hello, Button Clicked")

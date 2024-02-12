@@ -8,7 +8,7 @@
     'sequence': 10,
     'description': """ Cloth Rental System """,
     'category': 'Inventory',
-    'depends': ['sale_management', 'mail'],
+    'depends': ['sale_management', 'mail', 'website_profile'],
     'data': [
         'security/ir.model.access.csv',
         'security/cloth_rental_security.xml',
@@ -18,7 +18,7 @@
         'wizard/assigned_order_force_wizard_views.xml',
         'wizard/error_message_wizard_views.xml',
 
-        'report/ir_actions_report_templates.xml',
+        # 'report/ir_actions_report_templates.xml',
         'report/ir_actions_report.xml',
         'report/sale_order_report.xml',
         'report/custom_report.xml',
@@ -36,7 +36,18 @@
         'views/product_template_views.xml',
         'views/cloth_washing_views.xml',
         'views/menu_views.xml',
+        'views/website_views.xml',
+        'views/website_dynamic_views.xml',
+        'views/website_rental_customer_views.xml',
+        'views/controller_override_views.xml',
+        'views/static_snippets.xml',
+        'views/web_rental_products.xml'
     ],
+
+    'assets': {
+    'rental_system.assets_frontend': [
+        'rental_system/static/src/scss/controller_override.scss'
+    ]},
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

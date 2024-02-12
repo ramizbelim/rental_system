@@ -7,32 +7,33 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+
                         <div>
                             <h1>
-                                <label for="name"
+                                <label for="choose"
                                        string="This Product is assigned to another customer. Can you assigned Force fully?"/>
                             </h1>
                             <h2>
-                                <field name="name" widget="radio" options="{'horizontal': true}"/>
+                                <field name="choose" widget="radio" options="{'horizontal': true}"/>
                             </h2>
                         </div>
                         <group>
-                            <field name="customer"/>
-                            <field name="mobile"/>
-                            <field name="address"/>
+                            <field name="name" readonly="1"/>
+                            <field name="mobile" readonly="1"/>
+                            <field name="address" readonly="1"/>
                         </group>
+                        <footer>
+                            <button special="cancel" data-hotkey="z" string="Cancel" class="btn-primary"/>
+                            <button name="force_assigned_product" string="Force Assigned" class="btn-primary"
+                                    type="object" attrs="{ 'invisible': [('choose', '=', 'no')] }"/>
+                        </footer>
                     </sheet>
-                    <footer>
-                        <button special="cancel" data-hotkey="z" string="Cancel" class="btn-primary"/>
-                        <button name="force_assigned" data-hotkey="1" string="Force Assigned" class="btn-primary"
-                                type="object"/>
-                    </footer>
                 </form>
             </field>
         </record>
 
         <record id="action_assigned_product_wizard" model="ir.actions.act_window">
-            <field name="name">Assigned Order</field>
+            <field name="name">Assigned Product</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">assigned.product</field>
             <field name="view_id" ref="assigned_product_wizard_form"/>

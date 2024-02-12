@@ -1,19 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--    <template id="report_custom">-->
-<!--        <div class="header">-->
-<!--            <div class="row">-->
-<!--                <h1>Custom Header</h1>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="article oe_report_layout_standard">-->
-<!--            <t t-out="0"/>-->
-<!--        </div>-->
-<!--        <div class="footer oe_standard_footer">-->
-<!--            <div class="row">-->
-<!--                <h1>Custom Footer</h1>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </template>-->
+    <data>
+        <template id="report_custom">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="oe_structure">
+                                    <div t-field="o.name"/>
+                                    <div t-field="o.address"/>
+                                    <div t-field="o.mobile"/>
+                                    <div t-field="o.email"/>
+                                    <div t-field="o.order_date"/>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div>
+                                    <!--                                    <img class="float-end" src="/rental_system/static/src/img/blazer.jpg"-->
+                                    <!--                                         style="height:150px;"/>-->
+                                </div>
 
+                            </div>
+                        </div>
+
+                        <table class="table table-sm o_main_table table-borderless mt-4">
+                            <div class="oe_structure">
+                                <h2>Order Details</h2>
+                            </div>
+                            <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                            <thead style="display: table-row-group">
+                                <tr>
+                                    <th name="th_product_id" class="text-center">Product ID</th>
+                                    <th name="th_brand_name" class="text-center">Brand Name</th>
+                                    <th name="th_product_name" class="text-center">Product Name</th>
+                                    <th name="th_rent_per_day" class="text-center">Rent Per day</th>
+                                    <th name="th_size" class="text-center">Size</th>
+                                    <th name="th_image" class="text-center">Image</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.my_product_ids" t-as="line">
+                                    <tr>
+                                        <td class="text-center" name="td_prod_id">
+                                            <span t-field="line.prod_id"/>
+                                        </td>
+                                        <td class="text-center" name="td_company_name">
+                                            <span t-field="line.company_name"/>
+                                        </td>
+                                        <td class="text-center" name="td_name">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td class="text-center" name="td_rent_per_day">
+                                            <span t-field="line.rent_per_day"/>
+                                        </td>
+                                        <td class="text-center" name="td_size">
+                                            <span t-field="line.size"/>
+                                        </td>
+                                        <td class="text-center" name="td_image">
+                                            <img t-att-src="image_data_uri(line.product_image)"
+                                                 style="height:100px;"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr class="is-subtotal text-end">
+                                    <td name="td_section_total" colspan="99">
+                                        <strong class="mr16">Total</strong>
+                                        <span t-out="o.price_subtotal"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
 </odoo>

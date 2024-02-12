@@ -17,6 +17,7 @@
                                 <field name="name"/>
                                 <field name="mobile"/>
                                 <field name="address"/>
+                                <field name="email_id"/>
                             </group>
                             <group>
                                 <field name="identity"/>

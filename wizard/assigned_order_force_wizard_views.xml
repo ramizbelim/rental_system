@@ -14,7 +14,6 @@
                     <footer>
                         <button special="cancel" data-hotkey="z" string="Cancel" class="btn-primary"/>
                         <button name="assigned_button" data-hotkey="2" string="Assigned" class="btn-primary" type="object"/>
-                        <button name="force_assigned_button" data-hotkey="2" string="Force Assigned" class="btn-primary" type="object"/>
                     </footer>
                 </form>
             </field>

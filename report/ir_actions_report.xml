@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-<!--    <record id="action_report_clothorder" model="ir.actions.report">-->
+<!--    <record id="action_report_clothorder_" model="ir.actions.report">-->
 <!--        <field name="name">Rental Cloth / Order</field>-->
 <!--        <field name="model">cloth.orders</field>-->
 <!--        <field name="report_type">qweb-pdf</field>-->
@@ -12,13 +12,13 @@
 <!--        <field name="binding_type">report</field>-->
 <!--    </record>-->
 
-    <record id="report_custom" model="ir.actions.report">
+    <record id="action_report_custom" model="ir.actions.report">
         <field name="name">Rental Cloth / custome header </field>
         <field name="model">cloth.orders</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">rental_system.report_custom</field>
         <field name="report_file">rental_system.report_custom</field>
-        <field name="print_report_name">'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>
+        <field name="print_report_name">'Quotation - %s' % (object.name) or 'Order - %s' % (object.name)</field>
         <field name="binding_model_id" ref="model_cloth_orders"/>
         <field name="binding_type">report</field>
     </record>

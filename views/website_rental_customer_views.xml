@@ -6,33 +6,85 @@
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">60</field>
     </record>
+    <record id="menu_my_product" model="website.menu">
+        <field name="name">Product</field>
+        <field name="url">/product</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
     <template id="rental_customer_record" name="Customer Details">
         <t t-call="website.layout">
-            <div>
+            <div class="customer">
                 <br/>
                 <center>
                     <h3>Customer Details</h3>
                 </center>
                 <br/>
             </div>
-            <div class="row mt-4">
-
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col">
+                        <h3>Customer Name</h3>
+                    </div>
+                    <div class="col">
+                        <h3>Address</h3>
+                    </div>
+                    <div class="col">
+                        <h3>Email</h3>
+                    </div>
+                    <div class="col">
+                        <h3>Mobile</h3>
+                    </div>
+                </div>
                 <t t-foreach="customer" t-as="o">
-                    <div class="col-lg-3">
-                        <tr>
-                            <!--                            <a t-att-href="'/contact/%s'%partner.id">-->
-                            <div class="container mb-4">
-                                <div>
-                                    <span t-esc="o.name"/>
-                                    <span t-esc="o.mobile"/>
-                                    <span t-esc="o.email_id"/>
-                                </div>
-                            </div>
-                            <!--                            </a>-->
-                        </tr>
+                    <div class="row mb-4">
+                        <div class="col">
+                            <span t-esc="o.name"/>
+                        </div>
+                        <div class="col">
+                            <span t-esc="o.address"/>
+                        </div>
+                        <div class="col">
+                            <span t-esc="o.email_id"/>
+                        </div>
+                        <div class="col">
+                            <span t-esc="o.mobile"/>
+                        </div>
                     </div>
                 </t>
             </div>
+
+
+            <!--            <table>-->
+            <!--                <thead>-->
+            <!--                    <tr>-->
+            <!--                        <th name="th_name">Customer Name</th>-->
+            <!--                        <th name="th_mobile">Mobile</th>-->
+            <!--                        <th name="th_address">Address</th>-->
+            <!--                        <th name="th_email">Email</th>-->
+            <!--                    </tr>-->
+            <!--                </thead>-->
+            <!--                <t t-foreach="customer" t-as="o">-->
+
+            <!--                    <tbody>-->
+            <!--                        <tr>-->
+            <!--                            <td>-->
+            <!--                                <span t-esc="o.name"/>-->
+            <!--                            </td>-->
+            <!--                            <td>-->
+            <!--                                <span t-esc="o.mobile"/>-->
+            <!--                            </td>-->
+            <!--                            <td>-->
+            <!--                                <span t-esc="o.address"/>-->
+            <!--                            </td>-->
+            <!--                            <td>-->
+            <!--                                <span t-esc="o.email_id"/>-->
+            <!--                            </td>-->
+            <!--                        </tr>-->
+            <!--                    </tbody>-->
+            <!--                </t>-->
+            <!--                -->
+            <!--            </table>-->
         </t>
     </template>
 </odoo>
