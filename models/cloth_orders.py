@@ -2,7 +2,7 @@ from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
-
+from lxml import etree
 
 class ClothOrder(models.Model):
     _name = "cloth.orders"
@@ -115,9 +115,9 @@ class ClothOrder(models.Model):
         mail_template = self.env.ref('rental_system.cloth_order_mail_template_notification')
         records = self.search([])
         for rec in records:
-            if ((date.today() == rec.rental_period_end - relativedelta(days=1)) or (
+            if (date.today() == rec.rental_period_end - relativedelta(days=1)) or (
                     date.today() == rec.rental_period_end + relativedelta(
-                    days=1)) or date.today() == rec.rental_period_end):
+                    days=1)) or date.today() == rec.rental_period_end:
                 for record in records:
                     mail_template.send_mail(record.id, force_send=True)
 
@@ -178,3 +178,23 @@ class ClothOrder(models.Model):
     def call_wizard(self):
         wizard = self.env['ir.actions.act_window']._for_xml_id("rental_system.action_assigned_order_wizard")
         return wizard
+
+    # @api.model
+    # def get_view(self, views, options=None):
+    #     # call super to get the original view
+    #     result = super().get_view(views, options)
+    #     # loop through the views
+    #     for view in result.get("fields_views", {}).values():
+    #         # check if the view type is form
+    #         if view["type"] == "form":
+    #             # parse the XML view
+    #             doc = etree.XML(view["arch"])
+    #             # find the field that you want to modify
+    #             field = doc.xpath("//field[@name='rental_period_start']")
+    #         if field:
+    #             # inject your domain and context
+    #             field[0].set("domain", "[('your_domain', '=', True)]")
+    #             field[0].set("context", "{'abc': 'value'}")
+    #         # update the view arch with the modified XML
+    #         view["arch"] = etree.tostring(doc, encoding="unicode")
+    #     return result

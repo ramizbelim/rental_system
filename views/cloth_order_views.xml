@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="view_model_search_tree" model="ir.ui.view">
+            <field name="model">cloth.orders</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="address"/>
+                    <filter string="Email True" name="email" domain="[('email', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category Custom" name="category" context="{'group_by': 'category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
         <record id="cloth_orders_form_view" model="ir.ui.view">
             <field name="name">Order Details</field>
             <field name="model">cloth.orders</field>

@@ -10,4 +10,9 @@
             </td>
         </xpath>
     </template>
+<!--    <template id="inherited_sale_order_report_testing" inherit_id="sale.report_saleorder_document">-->
+<!--        <xpath expr="//th[@name='th_quantity']" position="after">-->
+<!--            <th name="th_testing" class="text-start">Testing</th>-->
+<!--        </xpath>-->
+<!--    </template>-->
 </odoo>

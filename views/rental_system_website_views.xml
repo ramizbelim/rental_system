@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="menu_rental_system_views" model="website.menu">
+        <field name="name">Rental System</field>
+        <field name="url">/rental-system</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">60</field>
+    </record>
+    <template id="rental_system_website_views" name="Contact Details">
+        <t t-call="website.layout">
+            <t t-call-assets="rental_system.assets_frontend"/>
+            <div class="image-background">
+                <div class="text">
+                    <h1 style="font-size:50px">Cloth Rental</h1>
+                    <h2>Look good without buying clothes</h2>
+                </div>
+            </div>
+
+            <div class="container_product">
+                <div class="fashion-box">
+                    <div class="title-style text-center">
+                        <h3 style="font-size:50px; padding-top:10px">Trends</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <t t-foreach="product" t-as="o">
+                        <div class="col-md-4 margine">
+                            <div class="border_box">
+                                <div class="trending-img">
+                                    <img t-attf-src="data:image/*;base64,{{o.product_image}}"/>
+                                </div>
+                                <div class="overlay">
+                                    <div>
+                                        <div>
+                                            <t t-out="o.name"/>
+                                        </div>
+                                        <div>
+                                            <t t-out="o.company_name" widget="selection"/>
+                                        </div>
+                                        <div>
+                                            Rent Per Day :
+                                            <t t-out="o.rent_per_day"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

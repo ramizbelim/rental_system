@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="cloth_rental_product_snippet" name="Cloth Rental">
+        <!--        <t t-call-assets="rental_system.assets_frontend"/>-->
+        <link rel="stylesheet" href="rental_system/static/src/scss/web_rental_product_css.css"></link>
+        <!--        <section class="container">-->
+        <!--            <section class="header">-->
+        <!--                <div class="banner">-->
+        <!--                    <div class="banner-img">-->
+        <!--                        <img src="https://i.ibb.co/crp25Fp/banner-1.jpg" alt=""/>-->
+        <!--                    </div>-->
+        <!--                    <div class="banner-title">-->
+        <!--                        <h1>Fashion Story</h1>-->
+        <!--                        <h1>Lifestyle</h1>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </section>-->
+        <section class="fashion-blog">
+            <div class="oe_structure">
+                <div class="title-style text-center">
+                    <h1>Latest Cloth on Rent</h1>
+                </div>
+                <div class="container_web">
+                    <div class="row">
+                        <!--                        <t t-foreach="product" t-as="o">-->
+                        <div class="col-md-4">
+                            <div class="blog-img">
+                                <!--                                    <img t-attf-src="data:image/*;base64,{{o.product_image}}"/>-->
+                                <img src="https://i.ibb.co/7jq8mJf/blog-2.jpg"/>
+                                <h5>Buy 1 Get 1 free</h5>
+                            </div>
+                        </div>
+                        <!--                        </t>-->
+                        <div class="col-md-4">
+                            <div class="blog-img">
+                                <img src="https://i.ibb.co/JpqQqNk/blog-1.jpg"/>
+                                <h5>Buy 1 Get 1 free</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="blog-img">
+                                <img src="https://i.ibb.co/RY5nxYb/blog-3.jpg"/>
+                                <h5>Buy 1 Get 1 free</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin: 16px 0px 16px 0px;" class="text-center">
+                        <a t-att-href="'/product-data'">
+                            <button type="button" class="btn btn-info">View Products</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="rental_product_snippets" inherit_id="website.snippets" priority="8">
+        <xpath expr="//div[@id='snippet_feature']//t[@t-snippet][last()]" position="after">
+            <t t-snippet="rental_system.cloth_rental_product_snippet"/>
+        </xpath>
+    </template>
+</odoo>

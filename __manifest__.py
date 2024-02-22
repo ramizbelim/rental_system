@@ -41,13 +41,13 @@
         'views/website_rental_customer_views.xml',
         'views/controller_override_views.xml',
         'views/static_snippets.xml',
-        'views/web_rental_products.xml'
+        'views/web_rental_products_snippet.xml',
+        'views/form_cloth_washing.xml'
     ],
-
     'assets': {
-    'rental_system.assets_frontend': [
-        'rental_system/static/src/scss/controller_override.scss'
-    ]},
+        'rental_system.assets_frontend': [
+            'rental_system/static/src/scss/controller_override.scss'
+        ]},
     'installable': True,
     'application': True,
     'license': 'LGPL-3',

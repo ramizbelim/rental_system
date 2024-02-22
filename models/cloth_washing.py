@@ -12,8 +12,10 @@ class ClothWashing(models.Model):
     washing_qty = fields.Integer(string="Quantity")
     rate = fields.Integer(string="Washing Rate")
     final_price = fields.Integer(string="Final Price")
+
     @api.onchange('washing_qty', 'rate')
     def _onchange(self):
         for rec in self:
             if rec.washing_qty:
                 rec.final_price = rec.washing_qty * rec.rate
+

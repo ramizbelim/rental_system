@@ -1,0 +1,71 @@
+.image-background{
+  background-image: url("https://png.pngtree.com/thumb_back/fw800/background/20230515/pngtree-stock-image-of-a-clothing-rack-image_2540150.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 500px
+}
+.text{
+text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;}
+ h1{
+  width: 600px;
+  border: 15px solid white;
+  padding: 15px;
+  margin: 10px;
+}}
+.container_product{
+margin-top:2000px}
+.trending-img {
+  position: relative;
+  margin-bottom: 15px;
+}
+.margine{
+padding: 5px 5px 5px 5px}
+
+.trending-img img {
+  height: 350px;
+  width:70%
+}
+.fashion-box {
+    margin-top: 60px;
+  }
+.title-style::after {
+  content: "";
+  height: 100px;
+  width: 200px;
+  background-color: #f992a6;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  z-index: -1;
+}
+.title-style {
+  margin: 0px auto 80px;
+  height: 120px;
+  width: 80%;
+  min-width: 700px;
+  background: #fff;
+  position: relative;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 50, 0.5);
+}
+
+.title-style::before {
+margin-top:0px;
+  content: "";
+  height: 100px;
+  width: 200px;
+  background-color: #f992a6;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  z-index: -1;
+}
+.border_box{
+border: 0.5rem solid;}
+
